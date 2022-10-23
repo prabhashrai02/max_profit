@@ -18,9 +18,9 @@ function calculate() {
     let total_profit = 0, total_theater = 0, total_pub = 0, total_complex = 0;
     let total_count = [];
     
-    rec(days);
+    getProfit(days);
 
-    function rec (days) {
+    function getProfit (days) {
         if (days < 5) return;
 
         let rem = days % 5, cntTheatre = Math.floor(days/5), cntPub = 0, totalDays = days;
@@ -96,8 +96,6 @@ function calculate() {
         total_theater = total_count[0][0];
         total_pub = total_count[0][1];
         total_complex = total_count[0][2];
-
-        // total_count.shift();
     }
 
     console.log(total_count)
