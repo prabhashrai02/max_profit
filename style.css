@@ -43,6 +43,37 @@
 
 .image_container {
     font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.skeleton-text {
+    width: 90%;
+    height: 2rem;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 80%
+      ),
+      lightgray;
+    background-repeat: repeat-y;
+    background-size: 50px 500px;
+    background-position: 0 0;
+    animation: shine 1s infinite;
+    border-radius: 0.5rem;
+    display: none;
+}
+
+.skeleton-profit {
+    width: 50%;
+}
+
+@keyframes shine {
+    to {
+      background-position: 100% 0;
+    }
 }
 
 @media only screen and (max-width: 768px){

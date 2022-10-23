@@ -11,25 +11,27 @@
 <body>
     <div class="main_section">
         <h1>Max Profit Problem</h1>
-        <br>
         <div>
             <text>Enter Number of Day's</text>
         </div>
-        <br>
         <input id="days" class="input_box" oninput="inputChanged()">
-        <text>Total Earning: $<span id="profit">0</span></text>
+        <div class="skeleton skeleton-text skeleton-profit"></div>
+        <text class="data">Total Earning: $<span id="profit">0</span></text>
         <div class="building_container">
             <div class="image_container">
                 <img src="./Assets/theater.jpg" alt="theater" class="building_image">
-                <p>Count: <span id="theater">0</span></p>
+                <div class="skeleton skeleton-text"></div>
+                <p class="data">Count: <span id="theater">0</span></p>
             </div>
             <div class="image_container">
                 <img src="./Assets/pub.jpg" alt="pub" class="building_image">
-                <p>Count: <span id="pub">0</span></p>
+                <div class="skeleton skeleton-text"></div>
+                <p class="data">Count: <span id="pub">0</span></p>
             </div>
             <div class="image_container">
                 <img src="./Assets/complex.jpg" alt="complex" class="building_image">
-                <p>Count: <span id="complex">0</span></p>
+                <div class="skeleton skeleton-text"></div>
+                <p class="data">Count: <span id="complex">0</span></p>
             </div>
         </div>
     </div>

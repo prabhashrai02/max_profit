@@ -8,9 +8,28 @@ function debounce(func, delay) {
     };
 }
   
-const inputChanged = debounce(() => {
-    calculate();
-}, 1000)
+const inputChanged = () => {
+    loader(true);
+
+    debounce(() => {
+        calculate();
+    }, 1000)();
+}
+
+function loader (show) {
+    const skeletonLoaders = document.querySelectorAll(".skeleton");
+    for (skeleton of skeletonLoaders) {
+        if (show) skeleton.style.display = "block";
+        else skeleton.style.display = "none";
+    }
+
+    const loadingData = document.querySelectorAll(".data");
+    for (data of loadingData) {
+        console.log(data)
+        if (show) data.style.display = "none";
+        else data.style.display = "block";
+    }
+}
 
 function calculate() {
     let days = document.getElementById("days").value;
@@ -77,7 +96,7 @@ function calculate() {
         if (checkProfit === total_profit) total_count.push([cntTheatre, cntPub, 0]);
 
 
-        /* after carefull observation I found that we will never construct "Commercial Park"
+        /* after careful observation I found that we will never construct "Commercial Park"
            because we are getting 3k in revenue for 1 park and the revenue will start after
            10 units of time, on the other-hand if we construct 2 theatre instead then also
            we will get 3k after 10 unit of time but here we will have 1 theatre after 5 unit
@@ -100,12 +119,15 @@ function calculate() {
 
     console.log(total_count)
 
-    let theaterElement = document.getElementById("theater");
+    const theaterElement = document.getElementById("theater");
     theaterElement.textContent = total_theater;
 
-    let pubElement = document.getElementById("pub");
+    const pubElement = document.getElementById("pub");
     pubElement.textContent = total_pub;
 
-    let complexElement = document.getElementById("complex");
+    const complexElement = document.getElementById("complex");
     complexElement.textContent = total_complex;
+
+
+    loader(false);
 }
