@@ -3,7 +3,6 @@
 * {
     background-color: black;
     color: white;
-    line-height: 1.5rem;
     letter-spacing: 0.1rem;
     font-family: 'Open Sans', sans-serif;
 }
@@ -14,6 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 .input_box {
@@ -42,7 +42,6 @@
 }
 
 .image_container {
-    text-align: center;
     font-size: 1rem;
 }
 
