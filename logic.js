@@ -14,36 +14,68 @@ const inputChanged = debounce(() => {
 
 function calculate() {
     let days = document.getElementById("days").value;
-    console.log(days);
 
     let total_profit = 0, total_theater = 0, total_pub = 0, total_complex = 0;
     let total_count = [];
     
     rec(days);
-    console.log(total_count);
 
-    function rec (days, theater=0, pub=0, complex=0, profit=0) {
+    function rec (days) {
+        if (days < 5) return;
 
-        let end_profit = 0;
+        let rem = days % 5, cntTheatre = Math.floor(days/5), cntPub = 0, totalDays = days;
+        
+        if (rem < 2) cntTheatre--;
+        if (rem < 2) cntPub++;
+        
+        // store ans in array
+        total_count.push([cntTheatre, cntPub, 0]);
 
-        if (days <= 4) {
-            end_profit = profit; 
-            if (days > 0) end_profit += ((theater*days*15) + (pub*days*10) + (complex*days*30));
+        // calculate profit
+        let countBuilding = 1;
+        totalDays = days;
 
-            if (total_profit < end_profit) {
-                total_profit = end_profit;
-                total_count.splice(0, total_count.length);
-            }
-
-            if (total_profit == end_profit && total_profit > 0) total_count.push([theater, pub, complex]);
-
-            return;
+        while (countBuilding <= cntTheatre) {
+            total_profit += (totalDays - (countBuilding*5))*15;
+            countBuilding++;
         }
 
-        let temp_profit = theater*15 + pub*10 + complex*30;
-    
-        if (days > 4) rec(days-4, theater, pub+1, complex, profit + temp_profit*4);
-        if (days > 5) rec(days-5, theater+1, pub, complex, profit + temp_profit*5);
+        totalDays -= cntTheatre*5;
+        countBuilding = 1;
+        while (countBuilding <= cntPub) {
+            total_profit += (totalDays - (countBuilding*4))*10;
+            countBuilding++;
+        }
+
+        totalDays -= (Math.floor(days/5) - 1)*5;
+        cntPub = Math.floor(totalDays/4);
+        if (totalDays % 4 == 0) cntPub--;
+
+        // check for second possibility
+        let checkProfit = 0;
+        cntTheatre = Math.floor(days/5) - 1;
+        cntPub = Math.floor(days / 4);
+        if (days % 4 === 0) cntPub--;
+
+        countBuilding = 1;
+        totalDays = days;
+
+        while (countBuilding <= cntTheatre) {
+            checkProfit += (totalDays - (countBuilding*5))*15;
+            countBuilding++;
+        }
+
+        totalDays -= cntTheatre*5;
+        countBuilding = 1;
+
+        while (countBuilding <= cntPub) {
+            checkProfit += (totalDays - (countBuilding*4))*10;
+            countBuilding++;
+        }
+
+        // add second option if profit matches with max profit
+        if (checkProfit === total_profit) total_count.push([cntTheatre, cntPub, 0]);
+
 
         /* after carefull observation I found that we will never construct "Commercial Park"
            because we are getting 3k in revenue for 1 park and the revenue will start after
@@ -65,7 +97,7 @@ function calculate() {
         total_pub = total_count[0][1];
         total_complex = total_count[0][2];
 
-        total_count.shift();
+        // total_count.shift();
     }
 
     console.log(total_count)
