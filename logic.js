@@ -25,14 +25,19 @@ function loader (show) {
 
     const loadingData = document.querySelectorAll(".data");
     for (data of loadingData) {
-        console.log(data)
         if (show) data.style.display = "none";
         else data.style.display = "block";
     }
 }
 
 function calculate() {
+    loader(false);
     let days = document.getElementById("days").value;
+
+    if (isNaN(days)) {
+        window.alert("Please Enter valid number!!!");
+        return;
+    }
 
     let total_profit = 0, total_theater = 0, total_pub = 0, total_complex = 0;
     let total_count = [];
@@ -128,6 +133,4 @@ function calculate() {
     const complexElement = document.getElementById("complex");
     complexElement.textContent = total_complex;
 
-
-    loader(false);
 }
