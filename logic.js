@@ -8,13 +8,9 @@ function debounce(func, delay) {
     };
 }
   
-const inputChanged = () => {
-    loader(true);
-
-    debounce(() => {
-        calculate();
-    }, 1000)();
-}
+const inputChanged = debounce(() => {
+    calculate();
+}, 1000);
 
 function loader (show) {
     const skeletonLoaders = document.querySelectorAll(".skeleton");
