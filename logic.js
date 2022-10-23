@@ -49,4 +49,23 @@ function calculate() {
 
     let printProfit = document.getElementById("profit");
     printProfit.textContent = total_profit*100;
+
+    if (total_count.length) {
+        total_theater = total_count[0][0];
+        total_pub = total_count[0][1];
+        total_complex = total_count[0][2];
+
+        total_count.shift();
+    }
+
+    console.log(total_count)
+
+    let theaterElement = document.getElementById("theater");
+    theaterElement.textContent = total_theater;
+
+    let pubElement = document.getElementById("pub");
+    pubElement.textContent = total_pub;
+
+    let complexElement = document.getElementById("complex");
+    complexElement.textContent = total_complex;
 }
