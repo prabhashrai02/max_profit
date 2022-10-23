@@ -44,7 +44,17 @@ function calculate() {
     
         if (days > 4) rec(days-4, theater, pub+1, complex, profit + temp_profit*4);
         if (days > 5) rec(days-5, theater+1, pub, complex, profit + temp_profit*5);
-        if (days > 10) rec(days-10, theater, pub, complex+1, profit + temp_profit*10);
+
+        /* after carefull observation I found that we will never construct "Commercial Park"
+           because we are getting 3k in revenue for 1 park and the revenue will start after
+           10 units of time, on the other-hand if we construct 2 theatre instead then also
+           we will get 3k after 10 unit of time but here we will have 1 theatre after 5 unit
+           of time and it will start giving revenue, so at any time the revenue given by 2
+           theatre will be greater then 1 Park, and here in this question it is given that 
+           he has infinite land (so we don't have to consider the land required and only focus
+           on increasing the profit).
+        */
+
     }
 
     let printProfit = document.getElementById("profit");
