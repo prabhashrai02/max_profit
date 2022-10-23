@@ -24,4 +24,35 @@
     font-size: 1rem;
     width: 50%;
     border-radius: 0.6rem;
+    margin-bottom: 0.4rem;
+}
+
+.building_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    width: 90%;
+}
+
+.building_image {
+    width: 28vw;
+    height: 28vw;
+    margin: 1vw;
+}
+
+.image_container {
+    text-align: center;
+    font-size: 1rem;
+}
+
+@media only screen and (max-width: 768px){
+    .building_container {
+        flex-wrap: wrap;
+    }
+
+    .building_image {
+        width: 40vw;
+        height: 40vw;
+    }
 }
