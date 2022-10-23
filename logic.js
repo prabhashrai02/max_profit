@@ -1,4 +1,18 @@
-function inputChanged() {
+function debounce(func, delay) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+        func(args);
+        }, delay);
+    };
+}
+  
+const inputChanged = debounce(() => {
+    calculate();
+}, 1000)
+
+function calculate() {
     let days = document.getElementById("days").value;
     console.log(days);
 
@@ -7,6 +21,7 @@ function inputChanged() {
     
     rec(days);
     console.log(total_count);
+
     function rec (days, theater=0, pub=0, complex=0, profit=0) {
 
         let end_profit = 0;
@@ -32,4 +47,6 @@ function inputChanged() {
         if (days > 10) rec(days-10, theater, pub, complex+1, profit + temp_profit*10);
     }
 
-};
+    let printProfit = document.getElementById("profit");
+    printProfit.textContent = total_profit*100;
+}
