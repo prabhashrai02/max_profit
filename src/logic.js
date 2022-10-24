@@ -11,21 +11,19 @@ function calculate() {
     loader(false);
     let days = document.getElementById("days").value;
 
-    if (isNaN(days)) {
+    if (Number.isNaN(days)) {
         window.alert("Please Enter valid number!!!");
         return;
     }
 
     total_count = [];
     total_profit = 0;
-    getProfit(days);
+    if (days.trim()) getProfit(Number(days));
     printCount();
 }
 
 // this function is used to calculate the max profit and the count of different buildings
 function getProfit (days) {
-
-    if (days.trim().length === 0) return;
 
     if (days < 5) {
         total_count.push([0, 0, 0]);
