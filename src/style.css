@@ -62,7 +62,7 @@ button {
 }
 
 .skeleton-text {
-    width: 50%;
+    width: 10rem;
     height: 2.1rem;
     line-height: 2rem;
     margin-top: 0.9rem 0;
@@ -82,7 +82,7 @@ button {
 }
 
 .skeleton-profit {
-    width: 30%;
+    width: 13rem;
 }
 
 .skeleton-button {
