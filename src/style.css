@@ -67,12 +67,12 @@ button {
     line-height: 2rem;
     margin-top: 0.9rem 0;
     background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0),
-    #656871 40%, 
-    rgba(255, 255, 255, 0) 80%
-    ),
-    rgb(64, 64, 64);
+        to right,
+        rgba(255, 255, 255, 0),
+        #656871 40%, 
+        rgba(255, 255, 255, 0) 80%
+        ),
+        rgb(64, 64, 64);
     background-repeat: repeat-y;
     background-size: 50px 500px;
     background-position: 0 0;
