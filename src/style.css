@@ -106,4 +106,8 @@ button {
         width: 40vw;
         height: 40vw;
     }
+
+    .skeleton-text {
+        width: 30vw;
+    }
 }
