@@ -1,24 +1,28 @@
 // this function is used to get the input enterd by user
 const inputChanged = debounce(() => {
-    calculate();
+    let days = document.getElementById("days").value;
+    days = Number(days);
+
+    if (Number.isNaN(days)) {
+        window.alert("Please Enter valid number!!!");
+        loader(false);
+        return;
+    }
+
+    calculate(days);
+
 }, 1000);
 
 let total_profit = 0, total_theater = 0, total_pub = 0, total_complex = 0;
 let total_count = [], currentIndex = 0;
 
 // this function is used to check the valid input and perfom calculation
-function calculate() {
+function calculate(days) {
     loader(false);
-    let days = document.getElementById("days").value;
-
-    if (Number.isNaN(days)) {
-        window.alert("Please Enter valid number!!!");
-        return;
-    }
 
     total_count = [];
     total_profit = 0;
-    if (days.trim()) getProfit(Number(days));
+    getProfit(days);
     printCount();
 }
 
@@ -35,55 +39,28 @@ function getProfit (days) {
     
     if (rem < 2) cntTheatre--;
     if (rem < 2) cntPub++;
-    
-    // store ans in array
+
+    // store first ans in array
     total_count.push([cntTheatre, cntPub, 0]);
 
     // calculate profit
-    let countBuilding = 1;
-    totalDays = days;
-
-    while (countBuilding <= cntTheatre) {
-        total_profit += (totalDays - (countBuilding*5))*15;
-        countBuilding++;
-    }
-
-    totalDays -= cntTheatre*5;
-    countBuilding = 1;
-    while (countBuilding <= cntPub) {
-        total_profit += (totalDays - (countBuilding*4))*10;
-        countBuilding++;
-    }
-
-    totalDays -= (Math.floor(days/5) - 1)*5;
-    cntPub = Math.floor(totalDays/4);
-    if (totalDays % 4 == 0) cntPub--;
+    total_profit = calculateProfit(days, cntTheatre, cntPub);
 
     // check for second possibility
-    let checkProfit = 0;
-    cntTheatre = Math.floor(days/5) - 1;
-    cntPub = Math.floor(days / 4);
-    if (days % 4 === 0) cntPub--;
-
-    countBuilding = 1;
+    const prevTheatre = cntTheatre, prevPub = cntPub;
     totalDays = days;
 
-    while (countBuilding <= cntTheatre) {
-        checkProfit += (totalDays - (countBuilding*5))*15;
-        countBuilding++;
-    }
-
+    cntTheatre = Math.floor((totalDays/5) - 1);
     totalDays -= cntTheatre*5;
-    countBuilding = 1;
+    cntPub = Math.floor(totalDays/4);
 
-    while (countBuilding <= cntPub) {
-        checkProfit += (totalDays - (countBuilding*4))*10;
-        countBuilding++;
-    }
+    if (totalDays % 4 === 0 && cntPub) cntPub--;
+    
+    // calculate profit for second possible answer
+    const checkProfit = calculateProfit(days, cntTheatre, cntPub);
 
-    // add second option if profit matches with max profit
-    if (checkProfit === total_profit) total_count.push([cntTheatre, cntPub, 0]);
-
+    // add second option if profit matches with max profit and the count of theatre and pub is different
+    if (checkProfit === total_profit && (prevTheatre !== cntTheatre || prevPub !== cntPub)) total_count.push([cntTheatre, cntPub, 0]);
 
     /* after careful observation I found that we will never construct "Commercial Park"
        because we are getting 3k in revenue for 1 park and the revenue will start after
@@ -94,7 +71,21 @@ function getProfit (days) {
        he has infinite land (so we don't have to consider the land required and only focus
        on increasing the profit).
     */
+}
 
+function calculateProfit(totalDays, cntTheatre, cntPub) {
+    const firstTheatre = totalDays - 5;
+    const lastTheatre = totalDays - (5*cntTheatre);
+
+    const theatreProfit = (cntTheatre/2)*(firstTheatre + lastTheatre)*15;
+
+    totalDays-= 5*cntTheatre;
+    const firstPub = totalDays - 4;
+    const lastPub = totalDays - (4*cntPub);
+
+    const pubProfit = (cntPub/2)*(firstPub + lastPub)*10;
+
+    return theatreProfit + pubProfit;
 }
 
 // this function is used to print the answer calculated by above functions
@@ -108,7 +99,7 @@ function printCount(currentIndex = 0) {
         total_complex = total_count[currentIndex][2];
     }
 
-    const theaterElement = document.getElementById("theater");
+    const theaterElement = document.getElementById("theatre");
     theaterElement.textContent = total_theater;
 
     const pubElement = document.getElementById("pub");
