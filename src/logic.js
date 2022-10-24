@@ -24,6 +24,9 @@ function calculate() {
 
 // this function is used to calculate the max profit and the count of different buildings
 function getProfit (days) {
+
+    if (days.trim().length === 0) return;
+
     if (days < 5) {
         total_count.push([0, 0, 0]);
         printCount();
