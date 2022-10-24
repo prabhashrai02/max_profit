@@ -48,18 +48,24 @@
     align-items: center;
 }
 
+.data {
+    line-height: 2rem;
+}
+
 button {
+    width: 10rem;
     margin: 0.5rem 0;
     background: white;
     border-radius: 0.4rem;
     color: black;
     font-weight: 900;
-    padding: 0.5rem;
 }
 
 .skeleton-text {
     width: 90%;
-    height: 2rem;
+    height: 2.1rem;
+    line-height: 2rem;
+    margin-top: 0.9rem 0;
     background: linear-gradient(
         to right,
         rgba(255, 255, 255, 0),
@@ -77,6 +83,11 @@ button {
 
 .skeleton-profit {
     width: 50%;
+}
+
+.skeleton-button {
+    width: 10rem;
+    margin: 1.5rem 0;
 }
 
 @keyframes shine {
