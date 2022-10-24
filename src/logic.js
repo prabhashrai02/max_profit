@@ -1,11 +1,17 @@
 // this function is used to get the input enterd by user
 const inputChanged = debounce(() => {
     let days = document.getElementById("days").value;
+
+    loader(false);
+    if (days.trim() === '') {
+        total_count = [];
+        return;
+    }
+
     days = Number(days);
 
     if (Number.isNaN(days)) {
         window.alert("Please Enter valid number!!!");
-        loader(false);
         return;
     }
 
@@ -18,7 +24,6 @@ let total_count = [], currentIndex = 0;
 
 // this function is used to check the valid input and perfom calculation
 function calculate(days) {
-    loader(false);
 
     total_count = [];
     total_profit = 0;
@@ -35,10 +40,10 @@ function getProfit (days) {
         return;
     }
 
-    let rem = days % 5, cntTheatre = Math.floor(days/5), cntPub = 0, totalDays = days;
+    let remainder = days % 5, cntTheatre = Math.floor(days/5), cntPub = 0, totalDays = days;
     
-    if (rem < 2) cntTheatre--;
-    if (rem < 2) cntPub++;
+    if (remainder < 2) cntTheatre--;
+    if (remainder < 2) cntPub++;
 
     // store first ans in array
     total_count.push([cntTheatre, cntPub, 0]);
@@ -61,6 +66,10 @@ function getProfit (days) {
 
     // add second option if profit matches with max profit and the count of theatre and pub is different
     if (checkProfit === total_profit && (prevTheatre !== cntTheatre || prevPub !== cntPub)) total_count.push([cntTheatre, cntPub, 0]);
+
+    /* after observation I found that there are only two possible answer in this problem, 
+       so I have checked for two possibilities only 
+    */
 
     /* after careful observation I found that we will never construct "Commercial Park"
        because we are getting 3k in revenue for 1 park and the revenue will start after
@@ -90,7 +99,7 @@ function calculateProfit(totalDays, cntTheatre, cntPub) {
 
 // this function is used to print the answer calculated by above functions
 function printCount(currentIndex = 0) {
-    let printProfit = document.getElementById("profit");
+    const printProfit = document.getElementById("profit");
     printProfit.textContent = total_profit*100;
 
     if (total_count.length) {
