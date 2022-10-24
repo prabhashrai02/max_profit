@@ -1,10 +1,15 @@
 // this function is used to get the input enterd by user
+let total_profit = 0, total_theater = 0, total_pub = 0, total_complex = 0;
+let total_count = [], currentIndex = 0, days;
 const inputChanged = debounce(() => {
-    let days = document.getElementById("days").value;
+    days = document.getElementById("days").value;
 
     loader(false);
     if (days.trim() === '') {
-        total_count = [];
+        total_profit = 0;
+        total_count.push([0, 0, 0]);
+        printCount();
+        days = null;
         return;
     }
 
@@ -18,9 +23,6 @@ const inputChanged = debounce(() => {
     calculate(days);
 
 }, 1000);
-
-let total_profit = 0, total_theater = 0, total_pub = 0, total_complex = 0;
-let total_count = [], currentIndex = 0;
 
 // this function is used to check the valid input and perfom calculation
 function calculate(days) {
@@ -122,7 +124,7 @@ function printCount(currentIndex = 0) {
 function otherSolution() {
     const possibleAnswers = total_count.length;
 
-    if (possibleAnswers === 1) {
+    if (possibleAnswers === 1 && days !== null) {
         window.alert("There is only one solution!!!");
         return;
     }
