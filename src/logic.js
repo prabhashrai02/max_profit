@@ -4,7 +4,7 @@ const inputChanged = debounce(() => {
 }, 1000);
 
 let total_profit = 0, total_theater = 0, total_pub = 0, total_complex = 0;
-let total_count = [];
+let total_count = [], currentIndex = 0;
 
 // this function is used to check the valid input and perfom calculation
 function calculate() {
@@ -97,14 +97,14 @@ function getProfit (days) {
 }
 
 // this function is used to print the answer calculated by above functions
-function printCount() {
+function printCount(currentIndex = 0) {
     let printProfit = document.getElementById("profit");
     printProfit.textContent = total_profit*100;
 
     if (total_count.length) {
-        total_theater = total_count[0][0];
-        total_pub = total_count[0][1];
-        total_complex = total_count[0][2];
+        total_theater = total_count[currentIndex][0];
+        total_pub = total_count[currentIndex][1];
+        total_complex = total_count[currentIndex][2];
     }
 
     const theaterElement = document.getElementById("theater");
@@ -117,6 +117,19 @@ function printCount() {
     complexElement.textContent = total_complex;
 }
 
+// this function will iterate to all the possible solutions of given days
+function otherSolution() {
+    const possibleAnswers = total_count.length;
+
+    if (possibleAnswers === 1) {
+        window.alert("There is only one solution!!!");
+        return;
+    }
+
+    currentIndex = (currentIndex + 1) % possibleAnswers;
+
+    printCount(currentIndex);
+}
 
 /* Util functions */
 
